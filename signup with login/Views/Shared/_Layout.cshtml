@@ -1,0 +1,93 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <style>
+        .navbar-nav .nav-link {
+            color: white;
+            font-weight: bold;  
+        }
+
+        body {
+            background-color: antiquewhite;
+        }
+
+        h2 {
+            font-weight: bold;
+            color: darkblue;
+        }
+
+        h4 {
+            font-weight: bold;
+            color: darkblue;
+        }
+
+        footer {
+            font-weight: bold;
+            color: darkgoldenrod;
+        }
+    </style>
+    
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/www.root/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-warning">
+        <div class="container">
+            @Html.ActionLink("MovYee", "Begin", "Home", new { area = "" }, new { @class = "navbar-brand" , style = "font-weight:bold;" })
+            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Toggle navigation" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
+                <ul class="navbar-nav flex-grow-1">
+                    @*<li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>*@
+                    <li>@Html.ActionLink("About", "About", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("Contact", "Contact", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("Sign-Up", "SignUp", "Login", new { area = "" }, new { @class = "nav-link" })</li>
+
+                    @if (Session["UserId"].ToString() != "")
+                    {
+                        if (Session["Role"].ToString() == "Admin")
+                        {
+                            <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                            <li>@Html.ActionLink("Customer List", "Index", "users", new { area = "" }, new { @class = "nav-link" })</li>
+                            <li>@Html.ActionLink("Movie", "Create", "Movie", new { area = "" }, new { @class = "nav-link" })</li>
+                            <li>@Html.ActionLink("Orders", "Index1", "Order", new { area = "" }, new { @class = "nav-link" })</li>
+                            <li class="navbar-nav ms-auto mb-2 mb-lg-0"><p style="font-weight:bold; margin-top:8px; color: white;"> Dear @User.Identity.Name </p></li>
+                            <li>@Html.ActionLink("Logout", "Logout", "Login", new { area = "" }, new { @class = "nav-link" })</li>
+
+                        }
+                        else
+                        {
+                            <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                            <li class="navbar-nav ms-auto mb-2 mb-lg-0"><p style="font-weight:bold; margin-top:8px; color: white;"> Dear @User.Identity.Name </p></li>
+                            <li>@Html.ActionLink("Cart", "CartView", "Order", new { area = "" }, new { @class = "nav-link" })</li>
+                            <li>@Html.ActionLink("Logout", "Logout", "Login", new { area = "" }, new { @class = "nav-link" })</li>
+                        }
+                    }
+                    else
+                    {
+                        <li>@Html.ActionLink("Login", "Index", "Login", new { area = "" }, new { @class = "nav-link" })</li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+           <marquee><p>& All Rights Reserved ; @DateTime.Now.Year - My MovYee Application</p></marquee> 
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/www.root/js")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

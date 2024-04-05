@@ -1,0 +1,100 @@
+﻿@model IEnumerable<signup_with_login.Models.user>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<style>
+    body {
+        background-color: antiquewhite;
+    }
+</style>
+
+<h2 class="text-center">Registered Customer List</h2>
+
+<p>
+    @using (Html.BeginForm("Index","users",FormMethod.Get))
+    {
+        <b>Search By : </b> @Html.RadioButton("searchBy", "FirstName",true) <text>Name</text>
+        @Html.RadioButton("searchBy", "Gender") <text>Gender</text><br />
+        @Html.TextBox("search") <input type="submit" value="search" class="btn btn-warning"/>
+    }
+</p>
+
+<p>
+    @Html.ActionLink("Create New", "Create", new { @class = "btn btn-success" })
+</p>
+<table class="table table-bordered table-striped">
+    <tr>
+        <th style="text-align: center; background-color: aquamarine;">
+            @Html.DisplayNameFor(model => model.FirstName)
+        </th>
+        <th style="text-align: center; background-color: aquamarine;">
+            @Html.DisplayNameFor(model => model.LastName)
+        </th>
+        <th style="text-align: center; background-color: aquamarine;">
+            @Html.DisplayNameFor(model => model.Gender)
+        </th>
+        <th style="text-align: center; background-color: aquamarine;">
+            @Html.DisplayNameFor(model => model.age)
+        </th>
+        <th style="text-align: center; background-color: aquamarine;">
+            @Html.DisplayNameFor(model => model.email)
+        </th>
+        <th style="text-align: center; background-color: aquamarine;">
+            @Html.DisplayNameFor(model => model.username)
+        </th>
+        <th style="text-align: center; background-color: aquamarine;">
+            @Html.DisplayNameFor(model => model.password)
+        </th>
+        <th style="text-align: center; background-color: aquamarine;">
+            SELECT OPERATION
+        </th>
+    </tr>
+
+    @if (Model.Count() == 0)
+    {
+        <tr>
+            <td colspan="7">
+                <p>No Rows Found !!!</p>
+            </td>
+        </tr>
+    }
+    else
+    {
+        foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Gender)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.age)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.username)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.password)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class= "btn btn-success" }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-warning" }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
+                </td>
+            </tr>
+        }
+    }
+
+ 
+
+</table>

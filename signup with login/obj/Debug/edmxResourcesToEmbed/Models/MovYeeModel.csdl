@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SignuploginEntities1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="movie">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="realease_year" Type="Int32" Nullable="false" />
+    <Property Name="image_path" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="price" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="orderts" Relationship="SignuploginEntities1Model.FK__ordert__movie_id__2B3F6F97" FromRole="movie" ToRole="ordert" />
+  </EntityType>
+  <EntityType Name="role">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="Role1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="user" Relationship="Self.FK__role__UserId__286302EC" FromRole="role" ToRole="user" />
+  </EntityType>
+  <EntityType Name="user">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Gender" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="age" Type="Int32" Nullable="false" />
+    <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="roles" Relationship="Self.FK__role__UserId__286302EC" FromRole="user" ToRole="role" />
+    <NavigationProperty Name="orderts" Relationship="SignuploginEntities1Model.FK__ordert__cust_id__2C3393D0" FromRole="user" ToRole="ordert" />
+  </EntityType>
+  <Association Name="FK__role__UserId__286302EC">
+    <End Role="user" Type="Self.user" Multiplicity="1" />
+    <End Role="role" Type="Self.role" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="user">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="role">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="SignuploginEntities1Entities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="movies" EntityType="Self.movie" />
+    <EntitySet Name="roles" EntityType="Self.role" />
+    <EntitySet Name="users" EntityType="Self.user" />
+    <AssociationSet Name="FK__role__UserId__286302EC" Association="Self.FK__role__UserId__286302EC">
+      <End Role="user" EntitySet="users" />
+      <End Role="role" EntitySet="roles" />
+    </AssociationSet>
+    <EntitySet Name="orderts" EntityType="SignuploginEntities1Model.ordert" />
+    <AssociationSet Name="FK__ordert__movie_id__2B3F6F97" Association="SignuploginEntities1Model.FK__ordert__movie_id__2B3F6F97">
+      <End Role="movie" EntitySet="movies" />
+      <End Role="ordert" EntitySet="orderts" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ordert__cust_id__2C3393D0" Association="SignuploginEntities1Model.FK__ordert__cust_id__2C3393D0">
+      <End Role="user" EntitySet="users" />
+      <End Role="ordert" EntitySet="orderts" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="ordert">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="movie_id" Type="Int32" />
+    <Property Name="cust_id" Type="Int32" />
+    <Property Name="price" Type="Int32" />
+    <Property Name="total_price" Type="Int32" />
+    <NavigationProperty Name="movie" Relationship="SignuploginEntities1Model.FK__ordert__movie_id__2B3F6F97" FromRole="ordert" ToRole="movie" />
+    <NavigationProperty Name="user" Relationship="SignuploginEntities1Model.FK__ordert__cust_id__2C3393D0" FromRole="ordert" ToRole="user" />
+    <Property Name="quantity" Type="Int32" />
+    <Property Name="order_date" Type="DateTime" Precision="0" />
+  </EntityType>
+  <Association Name="FK__ordert__movie_id__2B3F6F97">
+    <End Type="SignuploginEntities1Model.movie" Role="movie" Multiplicity="0..1" />
+    <End Type="SignuploginEntities1Model.ordert" Role="ordert" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="movie">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ordert">
+        <PropertyRef Name="movie_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ordert__cust_id__2C3393D0">
+    <End Type="SignuploginEntities1Model.user" Role="user" Multiplicity="0..1" />
+    <End Type="SignuploginEntities1Model.ordert" Role="ordert" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="user">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ordert">
+        <PropertyRef Name="cust_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

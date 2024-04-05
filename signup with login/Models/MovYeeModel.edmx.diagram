@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="57c91159f919440d825f7119f5df89fa" Name="Diagram1">
+        <EntityTypeShape EntityType="SignuploginEntities1Model.movie" Width="1.5" PointX="4.375" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SignuploginEntities1Model.role" Width="1.5" PointX="3" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SignuploginEntities1Model.user" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
+        <AssociationConnector Association="SignuploginEntities1Model.FK__role__UserId__286302EC" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="SignuploginEntities1Model.ordert" Width="1.5" PointX="0.625" PointY="4.5" />
+        <AssociationConnector Association="SignuploginEntities1Model.FK__ordert__movie_id__2B3F6F97" />
+        <AssociationConnector Association="SignuploginEntities1Model.FK__ordert__cust_id__2C3393D0" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

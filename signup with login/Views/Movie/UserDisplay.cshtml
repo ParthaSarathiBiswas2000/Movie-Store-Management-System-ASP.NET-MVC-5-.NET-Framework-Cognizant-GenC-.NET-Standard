@@ -1,0 +1,71 @@
+﻿@model IEnumerable<signup_with_login.Models.movie>
+@{
+    ViewBag.Title = "UserDisplay";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<marquee><h2>Our Available Movies</h2></marquee>
+
+<style>
+    /* Basic styling */
+    body {
+        font-family: Arial, sans-serif;
+        background-color:antiquewhite;
+        padding: 5px;
+    }
+
+
+    /* Container for cards */
+    .card-container {
+        display: flex;
+        /* Allow cards to wrap to the next row */
+        justify-content: space-between; /* Distribute cards evenly across the row */
+    }
+
+    /* Individual card styling */
+    .card {
+        width: auto; /* Adjust as needed to fit 4 cards per row */
+        padding: 20px;
+        border: 1px solid #c9c9c9;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        text-align: center;
+        background-color: #f1f1f1;
+        margin-bottom: 20px; /* Add some spacing between cards */
+    }
+</style>
+
+@*@Html.ActionLink("View Your Cart", "CartView", "Orders")*@
+
+<body>
+
+    <div class="row">
+
+        @foreach (var item in Model)
+        {
+            <div class="col-md-4 col-xs-6 border-primary mb-3">
+                <div class="card mb-3" style="max-width: 540px;">
+                    <div class="row g-0">
+                        <div class="col-md-12">
+
+
+
+                            <img src="@Url.Content(item.image_path)" alt="@item.name" width="200">
+                            <h4>@item.name</h4>
+                            <p>Price: @item.price</p>
+                            @using (Html.BeginForm("AddToCart", "Order", new { productId = item.Id, price = item.price, ddd = DateTime.Now }, FormMethod.Post))
+                            {
+                                <input type="hidden" name="productId" value="@item.Id" />
+                                <input type="number" name="quantity" value="1" min="1" /><br />
+
+                                <input type="submit" value="Add to Cart" class="btn btn-primary" />
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        }
+    </div>
+
+
+</body>

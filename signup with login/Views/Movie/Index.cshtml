@@ -1,0 +1,86 @@
+﻿@model IEnumerable<signup_with_login.Models.movie>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<style>
+    body {
+        background-color: antiquewhite;
+    }
+</style>
+
+<h2>Index</h2>
+
+@Html.Raw(TempData["Success"])
+@Html.Raw(TempData["UpdateMessage"])
+@Html.Raw(TempData["DeleteMessage"])
+
+
+<p>
+    @using (Html.BeginForm("Index", "Movie", FormMethod.Get))
+    {
+        <b>Search By : </b> @Html.RadioButton("searchBy", "name", true) <text>Movie Name</text>
+        @Html.TextBox("search") <input type="submit" value="Search" class="btn btn-warning" />
+    }
+</p>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table table-striped table-bordered">
+    <tr>
+        <th style="text-align:center; background-color:aquamarine;">
+            @Html.DisplayNameFor(model => model.name)
+        </th>
+        <th style="text-align: center; background-color: aquamarine;">
+            @Html.DisplayNameFor(model => model.realease_year)
+        </th>
+        <th style="text-align: center; background-color: aquamarine;">
+            @Html.DisplayNameFor(model => model.price)
+        </th>
+        <th style="text-align: center; background-color: aquamarine;">
+            IMAGE
+        </th>
+        <th style="text-align: center; background-color: aquamarine;">
+            Select Operation
+        </th>
+    </tr>
+
+    @if (Model.Count() == 0)
+    {
+        <tr>
+            <td colspan="7">
+                <p>No Rows Found !!!</p>
+            </td>
+        </tr>
+    }
+    else
+    {
+        foreach (var item in Model)
+        {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.name)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.realease_year)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.price)
+    </td>
+    <td>
+        <img src="@Url.Content(item.image_path)" height="100" width="100" />
+    </td>
+    <td>
+        @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-success" }) |
+        @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" }) |
+        @Html.ActionLink("Back to List", "Index", new { id = item.Id }, new { @class = "btn btn-info" })
+    </td>
+</tr>
+        }
+    }
+
+   
+
+</table>
