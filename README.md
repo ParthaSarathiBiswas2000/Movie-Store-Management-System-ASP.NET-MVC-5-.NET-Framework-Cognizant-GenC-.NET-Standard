@@ -1,1 +1,1 @@
-It is a Movie Store Management System (MovYee Application). Anyone can take assistance from it.(I would recommend not to copy paste)
+It is a Movie Store Management System (MovYee Application).I have used ASP.NET MVC5 , ENTITY FRAMEWORK, ADO.NET to connect with the database. I have used SQL SERVER MANAGEMENT STUDIO (SSMS) to store my database. Anyone can take assistance from it.(I would recommend not to copy paste)
